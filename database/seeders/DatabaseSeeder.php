@@ -13,6 +13,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        $halaSeeder = new HalaSeeder;
+        $koncertSeeder = new KoncertSeeder;
+        $pevacSeeder = new PevacSeeder;
+
+        $halaSeeder->run();
+        $koncertSeeder->run();
+        $pevacSeeder->run();
     }
 }

@@ -10,6 +10,12 @@ class Pevac extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'imePrezime',
+        'vrstaMuzike',
+        'brojKoncerata',
+    ];
+
     public function koncerti()
     {
         return $this->hasMany(Koncert::class);

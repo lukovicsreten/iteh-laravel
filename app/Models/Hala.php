@@ -10,6 +10,13 @@ class Hala extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'ime',
+        'adresa',
+        'grad',
+        'kapacitet',
+    ];
+
     public function koncerti()
     {
         return $this->hasMany(Koncert::class);

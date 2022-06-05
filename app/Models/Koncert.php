@@ -11,6 +11,13 @@ class Koncert extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'datum',
+        'cenaKarte',
+        'hala_id',
+        'pevac_id',
+    ];
+
     public function hala()
     {
         return $this->belongsTo(Hala::class);
