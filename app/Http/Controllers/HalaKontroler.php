@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\HalaResurs;
 use App\Models\Hala;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
 
 class HalaKontroler extends Controller
 {
@@ -14,7 +17,8 @@ class HalaKontroler extends Controller
      */
     public function index()
     {
-        //
+        $hale = Hala::all();
+        return HalaResurs::collection($hale);
     }
 
     /**
@@ -46,7 +50,7 @@ class HalaKontroler extends Controller
      */
     public function show(Hala $hala)
     {
-        //
+        return new HalaResurs($hala);
     }
 
     /**
@@ -69,7 +73,24 @@ class HalaKontroler extends Controller
      */
     public function update(Request $request, Hala $hala)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'ime' => 'required|string',
+            'adresa' => 'required|string',
+            'grad' => 'required|string',
+            'kapacitet' => 'required|integer'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        }
+
+        $hala->ime = $request->ime;
+        $hala->adresa = $request->adresa;
+        $hala->grad = $request->grad;
+        $hala->kapacitet = $request->kapacitet;
+        $hala->save();
+
+        return response()->json(['Hala uspešno izmenjena', new HalaResurs($hala)]);
     }
 
     /**
@@ -80,6 +101,7 @@ class HalaKontroler extends Controller
      */
     public function destroy(Hala $hala)
     {
-        //
+        $hala->delete();
+        return response()->json(['Hala uspešno obrisana', new HalaResurs($hala)]);
     }
 }

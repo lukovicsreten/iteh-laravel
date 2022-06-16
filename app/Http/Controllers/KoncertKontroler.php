@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\KoncertResurs;
 use App\Models\Koncert;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,8 @@ class KoncertKontroler extends Controller
      */
     public function index()
     {
-        //
+        $koncerti = Koncert::all();
+        return KoncertResurs::collection($koncerti);
     }
 
     /**
@@ -46,7 +48,7 @@ class KoncertKontroler extends Controller
      */
     public function show(Koncert $koncert)
     {
-        //
+        return new KoncertResurs($koncert);
     }
 
     /**
